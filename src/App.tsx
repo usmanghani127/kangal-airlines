@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
+import Search from "./Views/Search";
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-      </header>
+      <Search />
     </div>
   );
 }
