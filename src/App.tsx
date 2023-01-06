@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import Search from "./Views/Search";
+import SearchFlights from "./Views/Search";
 
 const App = () => {
   return (
     <div className="App">
-      <Search />
+      <SearchFlights />
     </div>
   );
 }
