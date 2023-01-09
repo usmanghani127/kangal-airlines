@@ -28,11 +28,11 @@ const SearchAirport = forwardRef((props: ISearchAirport, ref) => {
   }))
 
   useEffect(() => {
-    if (searchString.length > 2) {
-      clearTimeout(timer.current);
-      timer.current = setTimeout(() => Airports.getAirports(searchString), 200);
-    }
-  }, [searchString])
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => {
+      searchString.length < 3 ? !!Airports.airports.length && Airports.clear() : Airports.getAirports(searchString)
+    }, 200);
+  }, [Airports, searchString])
 
   const InputField = (params: AutocompleteRenderInputParams) => (
       <TextField
@@ -48,12 +48,12 @@ const SearchAirport = forwardRef((props: ISearchAirport, ref) => {
       id="combo-box-demo"
       // inputValue={searchString}
       options={Airports.airports}
-      sx={{ width: window.screen.width * 0.4 }}
       renderInput={InputField}
       getOptionLabel={option => option.fullName}
       // @ts-ignore
       onChange={(_, value) => onSelectAirport(value.id)}
     />
+
   );
 });
 

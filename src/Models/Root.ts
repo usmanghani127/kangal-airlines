@@ -1,22 +1,24 @@
-import { Instance, onSnapshot, types } from "mobx-state-tree";
+import { Instance, types } from "mobx-state-tree";
 import { createContext, useContext } from "react";
-import {SearchSuggestions} from "./Search";
+import {Airports} from "./Airports";
+import {Trips} from "./Trips";
 
 const RootModel = types.model({
-  Airports: SearchSuggestions,
+  Airports,
+  Trips,
 });
 
 
 export const rootStore = RootModel.create({
   Airports: {
-    airports: []
-  }
+    airports: [],
+    loading: false,
+  },
+  Trips: {
+    trips: [],
+    loading: false,
+  },
 });
-
-// onSnapshot(rootStore, (snapshot) => {
-//   console.log("Snapshot: ", snapshot);
-  // localStorage.setItem("rootState", JSON.stringify(snapshot));
-// });
 
 export type RootInstance = Instance<typeof RootModel>;
 const RootStoreContext = createContext<null | RootInstance>(null);

@@ -1,12 +1,13 @@
 import React from 'react';
 import './App.css';
 import SearchFlights from "./Views/Search";
+import {Container} from "@mui/material";
 
 const App = () => {
   return (
-    <div className="App">
+    <Container>
       <SearchFlights />
-    </div>
+    </Container>
   );
 }
 

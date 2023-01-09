@@ -46,28 +46,29 @@ export const Airport = types.model('Airport', {
   priority: types.maybeNull(types.number),
 })
 
-export const SearchSuggestions = types
-  .model('Search Suggestions', {
+export const Airports = types
+  .model('Searched Airports', {
     airports: types.array(Airport),
+    loading: types.boolean,
   })
   .actions(self => ({
     getAirports: flow(function*(searchString: string) {
       try {
-        const results = yield fetch(SEARCH_AIRPORT_URL.replace('searchString', searchString));
+        self.loading = true;
+        const results = yield fetch(SEARCH_AIRPORT_URL.replace(':searchString', searchString));
         const json: any = yield results.json();
         detach(self.airports);
         self.airports = json?.result || [];
+        self.loading = false;
       } catch (e: any) {
-        console.warn({error: e.message})
-        alert('Apologies, something went wrong!')
+        console.log({error: e.message})
         alert(e.message)
       }
      }),
+    clear: () => {
+      detach(self.airports);
+      // @ts-ignore
+      self.airports = [];
+    }
 
-  }))
-  // .views(self => ({
-  //   get AirportsSuggestions() {
-  //     return self.airports.map((airport) => airport.name)
-  //   }
-  // }))
-;
+  }));
